@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile | ExamBusters</title>
+    <link rel="icon" href="{% static 'photos/sat111.jpeg' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@600&family=Montserrat&family=Oxygen&family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <nav>
+            <a href="#" class="logo">
+            {% if user_profile.profile_picture %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+            {% endif %}
+            {% if user_profile.name %}
+                <span class="nav-item" alt="">{{ user_profile.name }}</span>
+            {% else %}
+                <span class="nav-item" alt="">{{ request.user.username }}</span>
+            {% endif %}
+            </a>
+            <a href="{% url 'myprofile' %}" ><img src="{% static 'photos/user.png' %}"  class="logo2" alt="">
+            <i class="fas fa-profile"></i>
+            <span class="nav-item">My Profile</span>
+            </a>
+            <a href="{% url 'store' %}"><img src="{% static 'photos/shop.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Store</span>
+            </a>
+            <a href="{% url 'leaderboard' %}" ><img src="{% static 'photos/podium.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Leaderboard</span>
+            </a>
+            <a href="{% url 'satverbal' %}"><img src="{% static 'photos/chat.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Verbal"></i>
+            <span class="nav-item">SAT Verbal</span>
+            </a>
+            <a href="{% url 'satmath' %}"><img src="{% static 'photos/keys.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Math"></i>
+            <span class="nav-item">SAT Math</span>
+            </a>
+            <a href="{% url 'friends_list' %}"><img src="{% static 'photos/friends.png' %}"  class="logo2" alt="">
+            <i class="fas fa-friends"></i>
+            <span class="nav-item">My Friends</span>
+            </a>
+            <a href="{% url 'payment' %}"><img src="{% static 'photos/payment.png' %}"  class="logo2" alt="">
+            <i class="fas fa-chart-payment"></i>
+            <span class="nav-item">Payment</span>
+            </a>
+            <a href="{% url 'satverbaltest2' %}"><img src="{% static 'photos/quest.png' %}"  class="logo2" alt="">
+            <i class="fas fa-quests"></i>
+            <span class="nav-item">Daily Quests</span>
+            </a>
+            <form method="post" action="{% url 'logoutsystem' %}">
+                {% csrf_token %}
+                <a href="#"><img src="{% static 'photos/logout.png' %}"  class="logo2" alt="">
+                <i class="fas fa-sign-out-alt"></i>
+                <button type="submit">Logout</button>
+                </a>
+            </form>
+        </nav>
+    <div class="content">
+        {% if user_profile.name %}
+                <h1 class="username">{{ user_profile.name }}</h1>
+            {% else %}
+                <h1 class="username">{{ request.user.username }}</h1>
+            {% endif %}
+        <h2>Scores of the LAST tests:</h2>
+        <br>
+      <div class="score">
+        <div class="subject">
+          <div class="bar">
+            <div class="fill fill-math"></div>
+          </div>
+          <span class="score-value math-score">{{ user_profile.math_score }}</span>
+        </div>
+        <div class="subject">
+          <div class="bar">
+            <div class="fill fill-verbal"></div>
+          </div>
+          <span class="score-value verbal-score">{{ user_profile.verbal_score }}</span>
+        </div>
+        <div class="subject">
+          <div class="bar">
+            <div class="fill fill-total"></div>
+          </div>
+          <span class="score-value superscore">{{ superscore }}</span>
+        </div>
+      </div>
+      <div class="tokens">
+        <h2>Tokens:</h2>
+        <span class="token-count">{{ user_profile.tokens }}</span>
+      </div>
+        <br><br><br><br>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="id_profile_picture">Profile Picture:</label>
+        <input type="file" name="profile_picture" id="id_profile_picture">
+        <br>
+        <label for="id_username">Name:</label>
+        <input type="text" name="name" id="id_username">
+        <br>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const mathScore = document.querySelector(".math-score");
+    const verbalScore = document.querySelector(".verbal-score");
+    const superscore = document.querySelector(".superscore");
+    const mathBar = document.querySelector(".fill-math");
+    const verbalBar = document.querySelector(".fill-verbal");
+    const totalBar = document.querySelector(".fill-total");
+    const mathScoreValue = parseInt(mathScore.innerHTML);
+    const verbalScoreValue = parseInt(verbalScore.innerHTML);
+    const superscoreValue = parseInt(superscore.innerHTML);
+    const totalScore = mathScoreValue + verbalScoreValue;
+
+    mathBar.style.width = (mathScoreValue / 800) * 100 + "%";
+    verbalBar.style.width = (verbalScoreValue / 800) * 100 + "%";
+    totalBar.style.width = (superscoreValue / 1600) * 100 + "%";
+    mathScore.innerHTML = "Math: " + mathScoreValue;
+    verbalScore.innerHTML = "Verbal: " + verbalScoreValue;
+    superscore.innerHTML = "Total: " + superscoreValue;
+
+    mathScore.animate([{ score: 0 }, { score: mathScoreValue }], {
+      duration: 1000,
+      easing: "ease-out",
+      fill: "forwards",
+    });
+
+    verbalScore.animate([{ score: 0 }, { score: verbalScoreValue }], {
+      duration: 1000,
+      easing: "ease-out",
+      fill: "forwards",
+    });
+
+    superscore.animate([{ score: 0 }, { score: totalScore }], {
+      duration: 1000,
+      easing: "ease-out",
+      fill: "forwards",
+    });
+  </script>
+</body>
+</html>
+

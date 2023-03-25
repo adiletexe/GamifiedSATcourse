@@ -1,0 +1,219 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store | ExamBusters</title>
+  <link rel="stylesheet" href="{% static 'css/store.css' %}">
+    <link rel="icon" href="{% static 'photos/sat111.jpeg' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@600&family=Montserrat&family=Oxygen&family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">
+            {% if user_profile.profile_picture %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+            {% endif %}
+            {% if user_profile.name %}
+                <span class="nav-item" alt="">{{ user_profile.name }}</span>
+            {% else %}
+                <span class="nav-item" alt="">{{ request.user.username }}</span>
+            {% endif %}
+            </a>
+            <a href="{% url 'myprofile' %}" ><img src="{% static 'photos/user.png' %}"  class="logo2" alt="">
+            <i class="fas fa-profile"></i>
+            <span class="nav-item">My Profile</span>
+            </a>
+            <a href="{% url 'store' %}"><img src="{% static 'photos/shop.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Store</span>
+            </a>
+            <a href="{% url 'leaderboard' %}" ><img src="{% static 'photos/podium.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Leaderboard</span>
+            </a>
+            <a href="{% url 'satverbal' %}"><img src="{% static 'photos/chat.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Verbal"></i>
+            <span class="nav-item">SAT Verbal</span>
+            </a>
+            <a href="{% url 'satmath' %}"><img src="{% static 'photos/keys.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Math"></i>
+            <span class="nav-item">SAT Math</span>
+            </a>
+            <a href="{% url 'friends_list' %}"><img src="{% static 'photos/friends.png' %}"  class="logo2" alt="">
+            <i class="fas fa-friends"></i>
+            <span class="nav-item">My Friends</span>
+            </a>
+            <a href="{% url 'payment' %}"><img src="{% static 'photos/payment.png' %}"  class="logo2" alt="">
+            <i class="fas fa-chart-payment"></i>
+            <span class="nav-item">Payment</span>
+            </a>
+            <a href="{% url 'satverbaltest2' %}"><img src="{% static 'photos/quest.png' %}"  class="logo2" alt="">
+            <i class="fas fa-quests"></i>
+            <span class="nav-item">Daily Quests</span>
+            </a>
+            <form method="post" action="{% url 'logoutsystem' %}">
+                {% csrf_token %}
+                <a href="#"><img src="{% static 'photos/logout.png' %}"  class="logo2" alt="">
+                <i class="fas fa-sign-out-alt"></i>
+                <button type="submit">Logout</button>
+                </a>
+            </form>
+        </nav>
+
+ <div class="total">
+     <h1>My Balance</h1>
+     <h1>{{ user_profile.tokens }} Tokens</h1>
+ </div>
+<div class="small-container">
+  <div class="row row-2">
+    <h2>All Products</h2>
+    <select>
+      <option value="">Default Sorting</option>
+      <option value="">Sort by price</option>
+      <option value="">Sort by popularity</option>
+      <option value="">Sort by rating</option>
+      <option value="">Sort by sale</option>
+    </select>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <img src="https://kbimages1-a.akamaihd.net/4fbab3dd-f294-41da-90ad-1d4740f0217d/1200/1200/False/master-the-sat-multiple-choice-writing-strategies-chapter-5-of-20.jpg" alt="" />
+      <h4>SAT Prep Book</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="https://kbimages1-a.akamaihd.net/4fbab3dd-f294-41da-90ad-1d4740f0217d/1200/1200/False/master-the-sat-multiple-choice-writing-strategies-chapter-5-of-20.jpg" alt="" />
+      <h4>SAT Prep Book</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="https://kbimages1-a.akamaihd.net/4fbab3dd-f294-41da-90ad-1d4740f0217d/1200/1200/False/master-the-sat-multiple-choice-writing-strategies-chapter-5-of-20.jpg" alt="" />
+      <h4>SAT Prep Book</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="https://kbimages1-a.akamaihd.net/4fbab3dd-f294-41da-90ad-1d4740f0217d/1200/1200/False/master-the-sat-multiple-choice-writing-strategies-chapter-5-of-20.jpg" alt="" />
+      <h4>SAT Prep Book</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <img src="https://i5.walmartimages.com/asr/6a6dd81b-16cd-4223-9a19-d7195fffe47f.68c9975b00a61715b35b042ded0f4dbc.jpeg" alt="" />
+      <h4>SAT Study Guide</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+   <div class="col-4">
+      <img src="https://i5.walmartimages.com/asr/6a6dd81b-16cd-4223-9a19-d7195fffe47f.68c9975b00a61715b35b042ded0f4dbc.jpeg" alt="" />
+      <h4>SAT Study Guide</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="https://i5.walmartimages.com/asr/6a6dd81b-16cd-4223-9a19-d7195fffe47f.68c9975b00a61715b35b042ded0f4dbc.jpeg" alt="" />
+      <h4>SAT Study Guide</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+
+    <div class="col-4">
+      <img src="https://i5.walmartimages.com/asr/6a6dd81b-16cd-4223-9a19-d7195fffe47f.68c9975b00a61715b35b042ded0f4dbc.jpeg" alt="" />
+      <h4>SAT Study Guide</h4>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <p>₹5800.00</p>
+    </div>
+  </div>
+
+
+  <div class="page-btn">
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    <span>&#8594;</span>
+  </div>
+</div>
+
+
+
+<!-- js for toggle menu -->
+<script>
+  var MenuItems = document.getElementById('MenuItems');
+  MenuItems.style.maxHeight = '0px';
+
+  function menutoggle() {
+    if (MenuItems.style.maxHeight == '0px') {
+      MenuItems.style.maxHeight = '200px';
+    } else {
+      MenuItems.style.maxHeight = '0px';
+    }
+  }
+</script>
+<!-- partial -->
+
+
+
+</body>
+</html>

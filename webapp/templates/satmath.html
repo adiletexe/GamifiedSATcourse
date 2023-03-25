@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SAT Math | ExamBusters</title>
+    <link rel="icon" href="{% static 'photos/sat111.jpeg' %}">
+  <link rel="stylesheet" href="{% static 'css/sat.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@600&family=Montserrat&family=Oxygen&family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">
+            {% if user_profile.profile_picture %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+            {% endif %}
+            {% if user_profile.name %}
+                <span class="nav-item" alt="">{{ user_profile.name }}</span>
+            {% else %}
+                <span class="nav-item" alt="">{{ request.user.username }}</span>
+            {% endif %}
+            </a>
+            <a href="{% url 'myprofile' %}" ><img src="{% static 'photos/user.png' %}"  class="logo2" alt="">
+            <i class="fas fa-profile"></i>
+            <span class="nav-item">My Profile</span>
+            </a>
+            <a href="{% url 'store' %}"><img src="{% static 'photos/shop.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Store</span>
+            </a>
+            <a href="{% url 'leaderboard' %}" ><img src="{% static 'photos/podium.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Leaderboard</span>
+            </a>
+            <a href="{% url 'satverbal' %}"><img src="{% static 'photos/chat.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Verbal"></i>
+            <span class="nav-item">SAT Verbal</span>
+            </a>
+            <a href="{% url 'satmath' %}"><img src="{% static 'photos/keys.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Math"></i>
+            <span class="nav-item">SAT Math</span>
+            </a>
+            <a href="{% url 'friends_list' %}"><img src="{% static 'photos/friends.png' %}"  class="logo2" alt="">
+            <i class="fas fa-friends"></i>
+            <span class="nav-item">My Friends</span>
+            </a>
+            <a href="{% url 'payment' %}"><img src="{% static 'photos/payment.png' %}"  class="logo2" alt="">
+            <i class="fas fa-chart-payment"></i>
+            <span class="nav-item">Payment</span>
+            </a>
+            <a href="{% url 'satverbaltest2' %}"><img src="{% static 'photos/quest.png' %}"  class="logo2" alt="">
+            <i class="fas fa-quests"></i>
+            <span class="nav-item">Daily Quests</span>
+            </a>
+            <form method="post" action="{% url 'logoutsystem' %}">
+                {% csrf_token %}
+                <a href="#"><img src="{% static 'photos/logout.png' %}"  class="logo2" alt="">
+                <i class="fas fa-sign-out-alt"></i>
+                <button type="submit">Logout</button>
+                </a>
+            </form>
+        </nav>
+        <div class="panel pricing-table">
+
+            <div class="pricing-plan">
+                <img src="https://s22.postimg.cc/8mv5gn7w1/paper-plane.png" alt="" class="pricing-img">
+                <h2 class="pricing-header">Level 1</h2>
+                <h3 class="pricing-features-item">Basic algebra (easy)</h3>
+                <h3 class="pricing-features-item">Basic geometry</h3>
+                <h3 class="pricing-features-item">Mean, mode, Median</h3>
+                <a href="{% url 'satmathtest1' %}" class="pricing-button is-featured">Start now</a>
+            </div>
+
+            <div class="pricing-plan">
+                <img src="https://s28.postimg.cc/ju5bnc3x9/plane.png" alt="" class="pricing-img">
+                <h2 class="pricing-header">Level 2</h2>
+                <h3 class="pricing-features-item">Woking with graphs</h3>
+                <h3 class="pricing-features-item">Probabilities</h3>
+                <h3 class="pricing-features-item">Linear Functions</h3>
+                <a href="{% url 'satmathtest1' %}" class="pricing-button is-featured">Start now</a>
+            </div>
+
+            <div class="pricing-plan">
+                <img src="https://s21.postimg.cc/tpm0cge4n/space-ship.png" alt="" class="pricing-img">
+                <h2 class="pricing-header">Level 3</h2>
+                <h3 class="pricing-features-item">Advanced Geometry</h3>
+                <h3 class="pricing-features-item">Exponentials</h3>
+                <h3 class="pricing-features-item">Advanced Algebra</h3>
+                <a href="{% url 'satmathtest1' %}" class="pricing-button is-featured">Start now</a>
+            </div>
+
+        </div>
+</body>
+</html>

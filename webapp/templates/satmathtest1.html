@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test | ExamBusters</title>
+  <link rel="icon" href="{% static 'photos/sat111.jpeg' %}">
+  <link rel="stylesheet" href="{% static 'css/styletest.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@600&family=Montserrat&family=Oxygen&family=Roboto+Condensed&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+        <nav>
+            <a href="#" class="logo">
+            {% if user_profile.profile_picture %}
+                <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+            {% endif %}
+            {% if user_profile.name %}
+                <span class="nav-item" alt="">{{ user_profile.name }}</span>
+            {% else %}
+                <span class="nav-item" alt="">{{ request.user.username }}</span>
+            {% endif %}
+            </a>
+            <a href="{% url 'myprofile' %}" ><img src="{% static 'photos/user.png' %}"  class="logo2" alt="">
+            <i class="fas fa-profile"></i>
+            <span class="nav-item">My Profile</span>
+            </a>
+            <a href="{% url 'store' %}"><img src="{% static 'photos/shop.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Store</span>
+            </a>
+            <a href="{% url 'leaderboard' %}" ><img src="{% static 'photos/podium.png' %}"  class="logo2" alt="">
+            <i class="fas fa-leaderboard "></i>
+            <span class="nav-item">Leaderboard</span>
+            </a>
+            <a href="{% url 'satverbal' %}"><img src="{% static 'photos/chat.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Verbal"></i>
+            <span class="nav-item">SAT Verbal</span>
+            </a>
+            <a href="{% url 'satmath' %}"><img src="{% static 'photos/keys.png' %}"  class="logo2" alt="">
+            <i class="fas fa-Math"></i>
+            <span class="nav-item">SAT Math</span>
+            </a>
+            <a href="{% url 'friends_list' %}"><img src="{% static 'photos/friends.png' %}"  class="logo2" alt="">
+            <i class="fas fa-friends"></i>
+            <span class="nav-item">My Friends</span>
+            </a>
+            <a href="{% url 'payment' %}"><img src="{% static 'photos/payment.png' %}"  class="logo2" alt="">
+            <i class="fas fa-chart-payment"></i>
+            <span class="nav-item">Payment</span>
+            </a>
+            <a href="{% url 'satverbaltest2' %}"><img src="{% static 'photos/quest.png' %}"  class="logo2" alt="">
+            <i class="fas fa-quests"></i>
+            <span class="nav-item">Daily Quests</span>
+            </a>
+            <form method="post" action="{% url 'logoutsystem' %}">
+                {% csrf_token %}
+                <a href="#"><img src="{% static 'photos/logout.png' %}"  class="logo2" alt="">
+                <i class="fas fa-sign-out-alt"></i>
+                <button type="submit">Logout</button>
+                </a>
+            </form>
+        </nav>
+    <div class="content">
+      <div class="test">
+        <h1>SAT Math Test Level 1</h1>
+        <h2>Instructions</h2>
+        <p>Dear student, this is a SAT Math test</p>
+        <p>The test consists of 4 questions</p>
+        <p>Questions have 4 choices: 1 correct, 3 incorrect</p>
+        <p>YYou are allowed to use simple and graphical calculators</p>
+        <h2>Test Questions</h2>
+        <form method="POST" action="{% url 'satmathtest1' %}">
+          {% csrf_token %}
+
+          {% for question in questions %}
+          <h3>Question {{ question.number }}</h3>
+          {% if question.image %}
+            <img src="{{ question.image.url }}">
+          {% endif %}
+          <p>{{ question.paragraph }}</p>
+          <p>{{ question.question }}
+          <ul>
+          <li>{{ question.answer1 }}</li>
+          <li>{{ question.answer2 }}</li>
+          <li>{{ question.answer3 }}</li>
+          <li>{{ question.answer4 }}</li>
+          </ul>
+          </p>
+          {% if condition %}
+            <br><br><br>
+            <p>{{ question.explanation }}</p>
+          {% else %}
+          <select name="answer{{question.number}}">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select>
+          {% endif %}
+          <br><br><br><br><br><br>
+          {% endfor %}
+          <br>
+          <button type="submit" id="buttonj">Submit all answers</button>
+        </div>
+        <div class="modal">
+          <div class="modal-content">
+
+          </div>
+        </div>
+        </form>
+    </div>
+  </div>
+</body>
+</html>
